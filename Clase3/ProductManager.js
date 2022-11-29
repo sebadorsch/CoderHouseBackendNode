@@ -4,16 +4,17 @@ class ProductManager {
     this.products = []
   }
 
-  addProduct(code, title, description, price, thumbnail, stock){
-    if(this.products.find(e => e.code === code) || arguments.length !== 6)
-      return false
+  addProduct(title, description, price, thumbnail, code, stock){
+    if(this.products.find(e => e.code === code) || arguments.length !== 6) {
+      return "Error"
+    }
 
     let product = {
-      code,
       title,
       description,
       price,
       thumbnail,
+      code,
       stock
     }
     product["id"] = this.products.length !== 0
@@ -35,42 +36,44 @@ class ProductManager {
 
 
 
-
+//Se creará una instancia de la clase “ProductManager”
 const productManager = new ProductManager
-console.log(productManager.addProduct('PR1'))
-console.log(productManager.addProduct(
-  'PR1',
-  'beer',
-  'drink with alcohol',
-  1,
-  'google.com',
-  100
-))
-console.log(productManager.addProduct(
-  'PR2',
-  'beer',
-  'drink with alcohol',
-  2,
-  'google.com',
-  200
-))
-console.log(productManager.addProduct(
-  'PR2',
-  'beer',
-  'drink with alcohol',
-  2,
-  'google.com',
-  200
-))
-console.log(productManager.addProduct(
-  'PR3',
-  'beer',
-  'drink with alcohol',
-  1.5,
-  'google.com',
-  150
+
+console.log(
+  '\nSe llamará “getProducts” recién creada la instancia, debe devolver un arreglo vacío []\n',
+  productManager.getProducts()
+)
+
+console.log(
+  "\nSe llamará al método “addProduct” y el objeto debe agregarse satisfactoriamente con un id generado automáticamente SIN REPETIRSE\n",
+  productManager.addProduct(
+  'producto prueba',
+  'Este es un producto prueba',
+  200,
+  'Sin imagen',
+  'abc123',
+  25
 ))
 
-console.log(productManager.getProducts())
-console.log(productManager.getProductById(3))
-console.log(productManager.getProductById(4))
+console.log(
+  "\nSe llamará el método “getProducts” nuevamente, esta vez debe aparecer el producto recién agregado\n",
+  productManager.getProducts(), "\n")
+
+
+console.log(
+  "Se llamará al método “addProduct” con los mismos campos de arriba, debe arrojar un error porque el código estará repetido.\n",
+  productManager.addProduct(
+  'producto prueba',
+  'Este es un producto prueba',
+  200,
+  'Sin imagen',
+  'abc123',
+  25
+), "\n")
+
+console.log(
+  "Se evaluará que getProductById devuelva error si no encuentra el producto o el producto en caso de encontrarlo\n",
+  productManager.getProductById(1),
+  "\n",
+  productManager.getProductById(4)
+)
