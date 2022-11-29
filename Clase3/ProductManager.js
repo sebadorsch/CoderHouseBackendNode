@@ -5,9 +5,8 @@ class ProductManager {
   }
 
   addProduct(title, description, price, thumbnail, code, stock){
-    if(this.products.find(e => e.code === code) || arguments.length !== 6) {
+    if(this.products.find(e => e.code === code) || arguments.length !== 6)
       return "Error"
-    }
 
     let product = {
       title,
@@ -17,6 +16,7 @@ class ProductManager {
       code,
       stock
     }
+
     product["id"] = this.products.length !== 0
       ? this.products[this.products.length - 1]["id"] + 1
       : 1
