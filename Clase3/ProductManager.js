@@ -35,7 +35,6 @@ class ProductManager {
 }
 
 
-
 //Se creará una instancia de la clase “ProductManager”
 const productManager = new ProductManager
 
