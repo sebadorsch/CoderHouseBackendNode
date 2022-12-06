@@ -5,8 +5,6 @@ const productManager = new ProductManager('./Products.json')
 
 console.log(productManager.getProducts())
 
-// console.log(productManager.addProduct())
-
 console.log(productManager.addProduct(
   'producto prueba',
   'Este es otro producto prueba',
@@ -16,8 +14,10 @@ console.log(productManager.addProduct(
   25
 ))
 
-console.log(productManager.getProductById(6))
+console.log(productManager.getProducts())
 
-console.log(productManager.updateProduct(6, {"title": "producto prueba reemplazo", "stock": 100}))
+// console.log(productManager.getProductById(2))
+
+console.log(productManager.updateProduct(1, {"title": "producto prueba reemplazo", "stock": 100}))
 
 console.log(productManager.deleteProduct(1))
