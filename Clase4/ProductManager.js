@@ -13,7 +13,7 @@ class ProductManager {
     }
   }
 
-  async addProduct(title, description, price, thumbnail, code, stock){
+  addProduct(title, description, price, thumbnail, code, stock){
     try{
       if(arguments.length !== 6)
         return 'Error: Invalid amount of arguments'
@@ -39,7 +39,7 @@ class ProductManager {
         : 1
 
       this.products.push(product);
-      await fs.promises.writeFile(this.path, JSON.stringify(this.products, null, '\t'))
+      fs.writeFileSync(this.path, JSON.stringify(this.products, null, '\t'))
       return product
     }
     catch(error){
@@ -47,13 +47,13 @@ class ProductManager {
     }
   }
 
-  async getProducts(){
+  getProducts(){
     return this.products
   }
 
-  async getProductById(id){
+  getProductById(id){
     try{
-      return JSON.parse(await fs.promises.readFile(this.path, 'utf-8'))
+      return JSON.parse(fs.readFileSync(this.path, 'utf-8'))
         .find(e => e.id === id) || "Error: Not found"
     }
     catch (error){
@@ -61,7 +61,7 @@ class ProductManager {
     }
   }
 
-  async updateProduct(id, obj){
+  updateProduct(id, obj){
     try{
       if(!id || !this.products.find(e => e.id === id))
         return "Error: id not found"
@@ -74,7 +74,7 @@ class ProductManager {
         this.products = this.products.filter(e => e.id !== id)
         this.products.push(updatedProduct)
 
-        await fs.promises.writeFile(this.path, JSON.stringify(this.products, null, '\t'))
+        fs.writeFileSync(this.path, JSON.stringify(this.products, null, '\t'))
         return "Product updated successfully!"
       }
     }
@@ -83,47 +83,15 @@ class ProductManager {
     }
   }
 
-  async deleteProduct(id){
+  deleteProduct(id){
     if(!id || !this.products.find(e => e.id === id))
       return "Error: id not found"
     else {
       let products = this.products.filter(e => e.id !== id)
-      await fs.promises.writeFile(this.path, JSON.stringify(products, null, '\t'))
+      fs.writeFileSync(this.path, JSON.stringify(products, null, '\t'))
       return "Product deleted successfully"
     }
   }
 }
 
-/** Testing **/
-
-const productManager = new ProductManager('./Products.json')
-
-// productManager.getProducts()
-//   .then(data => console.log(data))
-//   .catch(()=>console.log('error........'))
-
-// productManager.addProduct()
-//   .then(data => console.log(data))
-//   .catch(()=>console.log('error........'))
-
-productManager.addProduct(
-  'producto prueba',
-  'Este es otro producto prueba',
-  200,
-  'Sin imagen',
-  'abc12345',
-  25
-).then(data => console.log(data))
-  .catch(()=>console.log('error........'))
-
-// productManager.getProductById(1)
-//   .then(data => console.log(data))
-//   .catch(()=>console.log('error........'))
-//
-// productManager.updateProduct(1, {"title": "producto prueba reemplazo", "stock": 30})
-//   .then(data => console.log(data))
-//   .catch(()=>console.log('error........'))
-//
-// productManager.deleteProduct(1)
-//   .then(data => console.log(data))
-//   .catch(()=>console.log('error........'))
+module.exports = ProductManager
