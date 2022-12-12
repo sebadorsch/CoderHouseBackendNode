@@ -65,7 +65,7 @@ class ProductManager {
     try{
       if(!id || !this.products.find(e => e.id === id))
         return "Error: id not found"
-      else if (Object.keys(obj).some(value => {return ['id'].includes(value)}))
+      else if (Object.keys(obj).some(value => {return ['id', 'code'].includes(value)}))
         return "Error: Not Allowed"
       else{
         let updatedProduct = this.products.find(e => e.id === id)
